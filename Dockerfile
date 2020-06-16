@@ -66,3 +66,7 @@ RUN pecl install sqlsrv pdo_sqlsrv
 
 RUN docker-php-ext-enable sqlsrv pdo_sqlsrv
 RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1.0/' /etc/ssl/openssl.cnf
+
+# Setup apache default virtual host
+COPY default.conf /etc/apache2/sites-enabled/000-default.conf
+
