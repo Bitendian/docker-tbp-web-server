@@ -58,8 +58,8 @@ RUN touch /usr/local/etc/php/conf.d/uploads.ini \
 RUN ln -s /usr/local/bin/php /usr/bin/php
 
 # timezone
-RUN echo "[Date]" >> "$PHP_INI_DIR/php.ini"; \
-    echo "date.timezone = Europe/Madrid" >> "$PHP_INI_DIR/php.ini";
+#RUN echo "[Date]" >> "$PHP_INI_DIR/php.ini"; \
+#    echo "date.timezone = Europe/Madrid" >> "$PHP_INI_DIR/php.ini";
 
 # Configure MicrosoftSQL Server packages
 RUN pecl install sqlsrv pdo_sqlsrv
