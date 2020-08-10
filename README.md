@@ -8,5 +8,5 @@ Hi han dues solucions per al problema:
 
 La solució Linux és linkar el fitxer Dockerfile de la carpeta web-server a l'arrel del projecte.
 
-La solució Docker és indicar mitjançant el paràmetre *context* on es l'arrel del projecte al fer *build*.
+La solució Docker és indicar mitjançant el paràmetre *context* on és l'arrel del projecte al fer *build*.
 
