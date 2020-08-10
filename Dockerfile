@@ -1,4 +1,4 @@
-FROM php:7.4.3-apache AS apache
+FROM php:7.4.3-apache
 
 ENV ACCEPT_EULA=Y
 
@@ -75,14 +75,4 @@ RUN sed -i 's/# ca_ES.UTF-8 UTF-8/ca_ES.UTF-8 UTF-8/' /etc/locale.gen && \
 
 # Setup apache default virtual host
 COPY web-server/default.conf /etc/apache2/sites-enabled/000-default.conf
-
-FROM apache as dev
-# Custom entrypoint with composer execution on each start
-COPY web-server/docker-php-entrypoint /usr/local/bin/
-
-FROM apache as prod
-COPY . /var/www/html/
-
-
-RUN composer install
 
