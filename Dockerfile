@@ -74,5 +74,5 @@ RUN sed -i 's/# ca_ES.UTF-8 UTF-8/ca_ES.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
 
 # Setup apache default virtual host
-COPY web-server/default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY default.conf /etc/apache2/sites-enabled/000-default.conf
 
