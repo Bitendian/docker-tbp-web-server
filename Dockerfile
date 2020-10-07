@@ -12,10 +12,7 @@ libcurl4 \
 libcurl4-openssl-dev \
 libfreetype6 \
 libfreetype6-dev \
-libwebp-dev \
-libjpeg62-turbo-dev \
 libpng-dev \
-libxpm-dev \
 unzip \
 zip \
 libzip-dev \
