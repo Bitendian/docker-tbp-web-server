@@ -47,6 +47,9 @@ RUN docker-php-ext-install gettext
 RUN docker-php-ext-configure zip
 RUN docker-php-ext-install zip
 
+RUN docker-php-ext-install zip
+RUN docker-php-ext-install gd
+
 # Enable apache modules
 RUN a2enmod rewrite headers ssl xsendfile
 
