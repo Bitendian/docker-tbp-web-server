@@ -12,6 +12,10 @@ libcurl4 \
 libcurl4-openssl-dev \
 libfreetype6 \
 libfreetype6-dev \
+libwebp-dev \
+libjpeg62-turbo-dev \
+libpng-dev \
+libxpm-dev \
 unzip \
 zip \
 libzip-dev \
@@ -21,7 +25,10 @@ mariadb-client \
 libapache2-mod-xsendfile \
 locales \
 gettext \
-gnupg
+gnupg \
+&& apt-get -y --fix-missing --no-install-recommends install \
+libmagickwand-dev
+
 
 # Packages for MicrosoftSQL Server Connection
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
@@ -47,7 +54,10 @@ RUN docker-php-ext-install gettext
 RUN docker-php-ext-configure zip
 RUN docker-php-ext-install zip
 
-RUN docker-php-ext-install zip
+# Configure image magick for GD extension
+RUN printf "\n" | pecl install imagick
+RUN docker-php-ext-enable imagick
+RUN docker-php-ext-configure gd
 RUN docker-php-ext-install gd
 
 # Enable apache modules
