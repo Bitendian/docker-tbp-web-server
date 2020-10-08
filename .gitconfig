@@ -1,0 +1,17 @@
+[user]
+	email = no-reply.tbp-web-server@bitendian.com
+	name = TBP web server
+[push]
+	default = matching
+
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
+	h = log --pretty=format:\"%Cred%h %ad%Creset %s%Cred%d%Creset [%an]\" --graph --date=short
+	ha = log --pretty=format:\"%Cred%h %ad%Creset %s%Cred%d%Creset [%an]\" --graph --date=short --all
+	files = diff-tree --no-commit-id --name-only -r

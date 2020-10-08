@@ -86,3 +86,4 @@ RUN sed -i 's/# ca_ES.UTF-8 UTF-8/ca_ES.UTF-8 UTF-8/' /etc/locale.gen && \
 # Setup apache default virtual host
 COPY default.conf /etc/apache2/sites-enabled/000-default.conf
 
+COPY .gitconfig /root/.gitconfig
