@@ -84,9 +84,10 @@ COPY default.conf /etc/apache2/sites-enabled/000-default.conf
 
 COPY .gitconfig /root/.gitconfig
 
-# set timezone for container
+# timezone
 ENV TZ=Europe/Madrid
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# set timezone for PHP
-RUN printf '[PHP]\ndate.timezone = "$TZ"\n' > /usr/local/etc/php/conf.d/tzone.ini
+# for container
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# for PHP especifically
+RUN printf '[PHP]\ndate.timezone = "%s"\n' "$TZ" > /usr/local/etc/php/conf.d/tzone.ini
