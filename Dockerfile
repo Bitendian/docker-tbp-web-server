@@ -67,10 +67,6 @@ RUN touch /usr/local/etc/php/conf.d/uploads.ini \
 
 RUN ln -s /usr/local/bin/php /usr/bin/php
 
-# timezone
-#RUN echo "[Date]" >> "$PHP_INI_DIR/php.ini"; \
-#    echo "date.timezone = Europe/Madrid" >> "$PHP_INI_DIR/php.ini";
-
 # Configure MicrosoftSQL Server packages
 RUN pecl install sqlsrv pdo_sqlsrv
 
@@ -87,3 +83,10 @@ RUN sed -i 's/# ca_ES.UTF-8 UTF-8/ca_ES.UTF-8 UTF-8/' /etc/locale.gen && \
 COPY default.conf /etc/apache2/sites-enabled/000-default.conf
 
 COPY .gitconfig /root/.gitconfig
+
+# set timezone for container
+ENV TZ=Europe/Madrid
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# set timezone for PHP
+RUN printf '[PHP]\ndate.timezone = "$TZ"\n' > /usr/local/etc/php/conf.d/tzone.ini
