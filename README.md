@@ -21,3 +21,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # for PHP especifically
 RUN printf '[PHP]\ndate.timezone = "%s"\n' "$TZ" > /usr/local/etc/php/conf.d/tzone.ini
 ```
+
+## Locales
+
+By default, container comes with *Catalan*, *Spanish* and *English* locales enabled.
+
