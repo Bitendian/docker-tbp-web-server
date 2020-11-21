@@ -1,0 +1,40 @@
+services:
+  - name: docker:dind
+
+stages:
+  - release
+  - deploy-to-staging
+
+variables:
+  # See https://github.com/docker-library/docker/pull/166
+  DOCKER_TLS_CERTDIR: ""
+  REGISTRY_SERVER: registry.bitendian.com
+  REGISTRY_USER: bitendian
+  REGISTRY_PASSWORD: "hacemos madalenas"
+  STAGING_SERVER: stallman.bitendian.com
+  STAGING_USER: bitendian
+
+release:
+  stage: release
+  image: bitendian/cdci-docker-builder
+  script:
+    - echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USER --password-stdin $REGISTRY_SERVER
+    - docker-compose -f docker-compose-release.yml build
+    - docker-compose -f docker-compose-release.yml push
+  only:
+    - master
+    - tags
+
+deploy-to-staging:
+  stage: deploy-to-staging
+  script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_STAGING_SERVER_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USER --password-stdin $REGISTRY_SERVER
+    - docker-compose -f docker-compose-deploy.yml -H "ssh://$STAGING_USER@$STAGING_SERVER" down --remove-orphans
+    - docker-compose -f docker-compose-deploy.yml -H "ssh://$STAGING_USER@$STAGING_SERVER" pull
+    - docker-compose -f docker-compose-deploy.yml -H "ssh://$STAGING_USER@$STAGING_SERVER" up -d
+  only:
+    - master
+    - tags
+  when: manual
