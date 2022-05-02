@@ -2,7 +2,7 @@
 
 Use this image in your TBP Dockerfiles as base image with:
 
-```FROM bitendian/tbp-web-server:latest```
+```FROM bitendian/tbp-web-server:v2.0.0```
 
 ## Timezone
 

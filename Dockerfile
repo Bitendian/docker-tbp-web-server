@@ -1,4 +1,4 @@
-FROM php:7.4.3-apache
+FROM php:8.1.5-apache-buster
 
 ENV ACCEPT_EULA=Y
 
@@ -45,7 +45,6 @@ RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install mbstring pdo
 
 RUN docker-php-ext-install curl
-RUN docker-php-ext-install json
 RUN docker-php-ext-install gettext
 
 RUN docker-php-ext-configure zip
