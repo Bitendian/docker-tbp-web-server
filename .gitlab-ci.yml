@@ -1,0 +1,23 @@
+services:
+  - name: docker:dind
+
+stages:
+  - release
+
+variables:
+  # REGISTRY_USER <- exported from gitlab environment variables
+  # REGISTRY_PASSWORD <- exported from gitlab environment variables
+  # See https://github.com/docker-library/docker/pull/166
+  DOCKER_TLS_CERTDIR: ""
+  CI_REGISTRY_IMAGE: "bitendian/tbp-web-server:$CI_COMMIT_TAG"
+
+release:
+  stage: release
+  image: bitendian/cdci-docker-builder
+  before_script:
+    - echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USER --password-stdin
+  script:
+    - DOCKER_BUILDKIT=1 docker build --no-cache -t "$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY_IMAGE"
+  only:
+    - tags

@@ -40,7 +40,7 @@ msodbcsql17
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Other PHP7 Extensions
+# Other PHP8 Extensions
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install mbstring pdo
 
