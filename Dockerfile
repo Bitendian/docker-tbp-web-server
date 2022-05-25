@@ -62,6 +62,7 @@ RUN a2enmod rewrite headers ssl xsendfile
 RUN touch /usr/local/etc/php/conf.d/uploads.ini \
     && echo "max_input_vars = 10000;" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "upload_max_filesize = 512M;" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "max_file_uploads = 500;" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "post_max_size = 512M;" >> /usr/local/etc/php/conf.d/uploads.ini
 
 RUN ln -s /usr/local/bin/php /usr/bin/php
