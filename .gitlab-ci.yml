@@ -10,6 +10,7 @@ variables:
   # See https://github.com/docker-library/docker/pull/166
   DOCKER_TLS_CERTDIR: ""
   CI_REGISTRY_IMAGE: "bitendian/tbp-web-server:$CI_COMMIT_TAG"
+  LATEST_REGISTRY_IMAGE: "bitendian/tbp-web-server:latest"
 
 release:
   stage: release
@@ -17,7 +18,8 @@ release:
   before_script:
     - echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USER --password-stdin
   script:
-    - DOCKER_BUILDKIT=1 docker build --no-cache -t "$CI_REGISTRY_IMAGE" .
+    - DOCKER_BUILDKIT=1 docker build --no-cache -t "$CI_REGISTRY_IMAGE" -t "$LATEST_REGISTRY_IMAGE" .
     - docker push "$CI_REGISTRY_IMAGE"
+    - docker push "$LATEST_REGISTRY_IMAGE"
   only:
     - tags
