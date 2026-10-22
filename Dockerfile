@@ -1,4 +1,4 @@
-FROM php:8.2.24-apache
+FROM php:8.2.35-apache-bookworm
 
 ENV ACCEPT_EULA=Y
 
@@ -67,7 +67,8 @@ RUN touch /usr/local/etc/php/conf.d/uploads.ini \
 RUN ln -s /usr/local/bin/php /usr/bin/php
 
 # Configure MicrosoftSQL Server packages
-RUN pecl install sqlsrv pdo_sqlsrv
+# SQLSRV 5.13+ requires PHP 8.3; keep the PHP 8.2-compatible release.
+RUN pecl install sqlsrv-5.12.0 pdo_sqlsrv-5.12.0
 
 RUN docker-php-ext-enable sqlsrv pdo_sqlsrv
 RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1.0/' /etc/ssl/openssl.cnf
